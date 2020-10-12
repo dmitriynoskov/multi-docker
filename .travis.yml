@@ -7,11 +7,11 @@ sudo: required
 services:
   - docker
 
-# before_install:
-#   - docker build -t dmitriynoskov/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+  - docker build -t dmitriynoskov/react-test -f ./client/Dockerfile.dev ./client
 
-# script:
-#   - docker run dmitriynoskov/react-test npm test -- --coverage
+script:
+  - docker run dmitriynoskov/react-test npm test -- --watchAll=false
 
 after_success:
   - docker build -t dmitriynoskov/multi-client ./client
