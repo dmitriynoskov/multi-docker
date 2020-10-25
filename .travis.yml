@@ -26,6 +26,8 @@ after_success:
   - docker push dmitriynoskov/multi-server
   - docker push dmitriynoskov/multi-worker
 
+  
+
 # deploy:
 #   provider: elasticbeanstalk
 #   region: "us-east-2"
