@@ -10,8 +10,8 @@ services:
 before_install:
   - docker build -t dmitriynoskov/react-test -f ./client/Dockerfile.dev ./client
 
-# script:
-#   - docker run dmitriynoskov/react-test npm test -- --coverage
+script:
+  - docker run dmitriynoskov/react-test npm test -- --watchAll=false
 
 after_success:
   - docker build -t dmitriynoskov/multi-client ./client
@@ -25,3 +25,16 @@ after_success:
   - docker push dmitriynoskov/multi-nginx
   - docker push dmitriynoskov/multi-server
   - docker push dmitriynoskov/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-393264529200
+  bucket_path: docker_multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
